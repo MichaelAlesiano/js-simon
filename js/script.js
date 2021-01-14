@@ -28,11 +28,15 @@ var clock = setInterval(myFunction, 3000);
 function myFunction() {
 for (var i = 0; i < 5; i++) {
   var numeriUtente = prompt('Inserisci i numeri che hai visualizzato..')
-  arrayUtente.push(numeriUtente)
+  console.log(numeriUtente);
+  if (arrayNumeri.includes(numeriUtente)) {
+    arrayUtente.push(numeriUtente);
+  } else {
+    console.log('Il numero che hai inserito non è presente');
+  }
   clearInterval(clock)
 }
 }
 
 console.log(arrayNumeri);
 console.log(arrayUtente);
-console.log(confronto);
