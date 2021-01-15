@@ -8,35 +8,50 @@
 // L'utente per 30 secondi non vede nulla....e quindi cercherà immagino di ripetersi mentalmente i numeri :stuck_out_tongue:
 // L'utente prova a inserire, uno alla volta, tutti e 5 i numeri :muscle:
 
+var numeriCasuali = [];
+var numeriUtente = [];
 
-// 1) Generazione numeri random e alert
-var arrayNumeri = []
-
-for (var i = 0; i < 5; i++) {
-  var numeroRandom = Math.floor(Math.random() * 101);
-  console.log(numeroRandom);
-  arrayNumeri.push(numeroRandom);
-}
-
-alert(arrayNumeri);
-
-// 2) Timer
-
-var arrayUtente = [];
-
-var clock = setInterval(myFunction, 3000);
-function myFunction() {
-for (var i = 0; i < 5; i++) {
-  var numeriUtente = prompt('Inserisci i numeri che hai visualizzato..')
-  console.log(numeriUtente);
-  if (arrayNumeri.includes(numeriUtente)) {
-    arrayUtente.push(numeriUtente);
-  } else {
-    console.log('Il numero che hai inserito non è presente');
+while(numeriCasuali.length < 5){
+  var numero = generaRandom(1,100);
+  if (!ricerca(numeriCasuali,numero)){
+    numeriCasuali.push(numero);
   }
-  clearInterval(clock)
-}
 }
 
-console.log(arrayNumeri);
-console.log(arrayUtente);
+alert(numeriCasuali);
+
+console.log(numeriCasuali);
+
+setTimeout(inserimento,4000);
+
+// Funzioni
+
+function inserimento(){
+  for(var i = 0; i < 5; i++){
+
+    var n = parseInt(prompt('Inserisci un numero da 1 a 100..'));
+    while(n < 1 || n > 100 || isNaN(n)){ //isNaN(n) dà vero quando non è un numero
+      alert('Attento, il numero non è nell\'intervallo, riprova');
+      var n = parseInt(prompt('Inserisci un numero da 1 a 100..'));
+    }
+
+    if(ricerca(numeriCasuali,n) && !ricerca(numeriUtente,n)){
+      numeriUtente.push(n);
+    }
+
+  }
+  console.log('Hai indovinato ' + numeriUtente.length + ' numeri : ' + numeriUtente );
+}
+
+function generaRandom(min,max){
+  return Math.floor(Math.random()*(max - min + 1)) + min;
+}
+
+function ricerca(array,elemento){
+  for(var i = 0; i < array.length; i++){
+    if(elemento == array[i]){
+      return true;
+    }
+  }
+  return false;
+}
